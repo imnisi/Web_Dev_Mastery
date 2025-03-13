@@ -1,0 +1,69 @@
+* {
+  margin: 0; /* Removes default margin from all elements */
+  padding: 0; /* Removes default padding from all elements */
+  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+}
+
+html,
+body {
+  width: 100%; /* Sets the width to 100% of the viewport */
+  height: 100%; /* Sets the height to 100% of the viewport */
+}
+
+p {
+  display: inline; /* Displays the element as an inline element */
+  background-color: burlywood; /* Sets the background color to burlywood */
+}
+
+p {
+  display: inline-block; /* Displays the element as an inline-block element */
+  width: 90px; /* Sets the width to 90 pixels */
+  height: 90px; /* Sets the height to 90 pixels */
+}
+
+a {
+  display: block; /* Displays the element as a block element */
+  width: 100px; /* Sets the width to 100 pixels */
+}
+
+#box1 {
+  width: 300px; /* Sets the width to 300 pixels */
+  height: 300px; /* Sets the height to 300 pixels */
+  background-color: blue; /* Sets the background color to blue */
+  position: relative; /* Positions the element relative to its normal position */
+}
+
+#cube {
+  width: 100px; /* Sets the width to 100 pixels */
+  height: 100px; /* Sets the height to 100 pixels */
+  background-color: chartreuse; /* Sets the background color to chartreuse */
+  position: absolute; /* Positions the element absolutely within its containing element */
+  left: 10%; /* Positions the element 10% from the left of its containing element */
+  /* it will go left with respect to Box not with respect to screen */
+}
+
+#img1 {
+  width: 300px; /* Sets the width to 300 pixels */
+  height: 300px; /* Sets the height to 300 pixels */
+  background: url(https://images.unsplash.com/photo-1741439432848-ae1301dca116?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); /* Sets the background image */
+  background-size: cover; /* Scales the background image to cover the entire element */
+  background-position: center; /* Centers the background image */
+}
+
+#img2 {
+  width: 300px; /* Sets the width to 300 pixels */
+  height: 300px; /* Sets the height to 300 pixels */
+  background: url(https://plus.unsplash.com/premium_photo-1691938884993-cd87199d807b?q=80&w=2028&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); /* Sets the background image */
+  background-size: contain; /* Scales the background image to fit within the element */
+  background-repeat: no-repeat; /* Prevents the background image from repeating */
+}
+
+#box2 {
+  width: 500px; /* Sets the width to 500 pixels */
+  height: 500px; /* Sets the height to 500 pixels */
+  background: linear-gradient(
+    to right bottom,
+    rgb(223, 166, 60),
+    yellow
+  ); /* Sets a linear gradient background */
+}

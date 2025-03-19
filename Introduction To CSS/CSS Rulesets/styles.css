@@ -13,47 +13,56 @@ body {
 /* ==============================================*/
 
 h1 {
-  color: rgb(1, 1, 11); /* Sets the text color */
-  background-color: rgb(244, 244, 182); /* Sets the background color */
-  text-align: center; /* Centers the text */
+  color: rgb(1, 1, 11); /* Sets the text color to a very dark shade */
+  background-color: rgb(
+    244,
+    244,
+    182
+  ); /* Sets the background color to a light yellow */
+  text-align: center; /* Centers the text horizontally */
   width: fit-content; /* Adjusts the width to fit the content */
-  justify-self: center; /* Centers the element within its container */
+  justify-self: center; /* Aligns the element in the center of its container */
 }
+
 .main {
   width: 300px; /* Sets the width to 300 pixels */
   height: 300px; /* Sets the height to 300 pixels */
-  background-color: red; /* Sets the background color to red */
+  background-color: red; /* Fills the background with red color */
 }
 
 #test1 {
   width: 50%; /* Sets the width to 50% of the parent element */
   height: 50%; /* Sets the height to 50% of the parent element */
-  background-color: blue; /* Sets the background color to blue */
+  background-color: blue; /* Fills the background with blue color */
 }
 
 #test2 {
   width: 600px; /* Sets the width to 600 pixels */
   height: 600px; /* Sets the height to 600 pixels */
-  background-color: chartreuse; /* Sets the background color to chartreuse */
+  background-color: chartreuse; /* Fills the background with chartreuse color */
 }
 
 #child1 {
   width: 50%; /* Sets the width to 50% of the parent element */
   height: 50%; /* Sets the height to 50% of the parent element */
-  background-color: rgb(236, 104, 10); /* Sets the background color */
+  background-color: rgb(
+    236,
+    104,
+    10
+  ); /* Fills the background with an orange shade */
 }
 
 #child2 {
   width: 50vw; /* Sets the width to 50% of the viewport width */
   height: 50vh; /* Sets the height to 50% of the viewport height */
-  background-color: cyan; /* Sets the background color to cyan */
+  background-color: cyan; /* Fills the background with cyan color */
 }
 
 #test3 {
   font-size: 16px; /* Sets the font size to 16 pixels */
   width: 20em; /* Sets the width to 20 times the font size */
   height: 20em; /* Sets the height to 20 times the font size */
-  background-color: darkslateblue; /* Sets the background color to dark slate blue */
+  background-color: darkslateblue; /* Fills the background with dark slate blue color */
 }
 
 html {
@@ -63,15 +72,19 @@ html {
 #test4 {
   width: 20rem; /* Sets the width to 20 times the root element's font size */
   height: 20rem; /* Sets the height to 20 times the root element's font size */
-  background-color: rgb(131, 61, 139); /* Sets the background color */
+  background-color: rgb(
+    131,
+    61,
+    139
+  ); /* Fills the background with a purple shade */
 }
 
 #test5 {
   width: 1200px; /* Sets the width to 1200 pixels */
-  min-width: 50px; /* Sets the minimum width to 50 pixels */
-  max-width: 500px; /* Sets the maximum width to 500 pixels */
+  min-width: 50px; /* Ensures the width does not go below 50 pixels */
+  max-width: 500px; /* Ensures the width does not exceed 500 pixels */
   height: 200px; /* Sets the height to 200 pixels */
-  min-height: 50px; /* Sets the minimum height to 50 pixels */
-  max-height: 100px; /* Sets the maximum height to 100 pixels */
-  background-color: darkgreen; /* Sets the background color to dark green */
+  min-height: 50px; /* Ensures the height does not go below 50 pixels */
+  max-height: 100px; /* Ensures the height does not exceed 100 pixels */
+  background-color: darkgreen; /* Fills the background with dark green color */
 }

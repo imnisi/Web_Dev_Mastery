@@ -1,0 +1,58 @@
+* {
+  margin: 0; /* Removes default margin from all elements */
+  padding: 0; /* Removes default padding from all elements */
+  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+}
+
+html,
+body {
+  width: 100%; /* Sets the width to 100% of the viewport */
+  height: 100%; /* Sets the height to 100% of the viewport */
+}
+
+#parent {
+  display: flex; /* Makes the container a flexbox */
+  justify-content: space-evenly; /* Distributes child elements evenly with equal space between them */
+  align-items: center; /* Aligns child elements vertically in the center */
+  border: 2px solid black; /* Adds a 2-pixel solid black border */
+  background-color: rgb(
+    219,
+    222,
+    28
+  ); /* Fills the background with a yellowish color */
+  width: 900px; /* Sets the width to 900 pixels */
+  height: 500px; /* Sets the height to 500 pixels */
+  justify-self: center; /* Centers the element within its container */
+  margin-top: 20px; /* Adds a 20-pixel margin above the element */
+}
+
+.square {
+  width: 200px; /* Sets the width to 200 pixels */
+  height: 200px; /* Sets the height to 200 pixels */
+  border: 2px solid black; /* Adds a 2-pixel solid black border */
+}
+
+#s1 {
+  background-color: red; /* Fills the background with red color */
+}
+
+#s2 {
+  background-color: rgb(
+    190,
+    100,
+    267
+  ); /* Fills the background with a purple shade using RGB notation */
+}
+
+#s3 {
+  background-color: #fdb7ea; /* Fills the background with a pink shade using hex code */
+}
+
+#s4 {
+  background-color: rgba(
+    101,
+    144,
+    190,
+    0.7
+  ); /* Fills the background with a semi-transparent blue shade using RGBA notation */
+}

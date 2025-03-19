@@ -1,0 +1,26 @@
+* {
+  margin: 0; /* Removes default margin from all elements */
+  padding: 0; /* Removes default padding from all elements */
+  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+}
+
+html,
+body {
+  width: 100%; /* Sets the width of the html and body to occupy the full viewport width */
+  height: 100%; /* Sets the height of the html and body to occupy the full viewport height */
+}
+
+#nav {
+  background-color: #e66868; /* Sets the background color of the navigation bar */
+
+  display: grid; /* Enables grid layout for the navigation bar */
+  grid-template-columns: 50% 10% 10% 10% 10% 10%; /* Defines the column structure of the grid */
+  grid-template-rows: 100px; /* Sets the height of the grid rows */
+  align-items: center; /* Vertically aligns grid items to the center */
+  justify-items: center; /* Horizontally aligns grid items to the center */
+  padding: 0 20px; /* Adds horizontal padding of 20px to the navigation bar */
+}
+
+h1 {
+  justify-self: self-start; /* Aligns the h1 element to the start of its grid cell */
+}

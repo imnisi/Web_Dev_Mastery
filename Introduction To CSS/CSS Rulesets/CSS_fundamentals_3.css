@@ -1,0 +1,114 @@
+/* Resetting default margin and padding for all elements and setting box-sizing to border-box */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Setting the height and width of the html and body to 100% of the viewport */
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+/* Styling a container box with flexbox for layout */
+#box {
+  display: flex; /* Enables flexbox layout */
+  justify-content: space-evenly; /* Distributes child elements evenly with equal space */
+  align-items: center; /* Aligns child elements vertically at the center */
+  height: 300px; /* Sets the height of the box */
+  width: 300px; /* Sets the width of the box */
+  background-color: aqua; /* Sets the background color of the box */
+}
+
+/* Styling individual child boxes inside the container */
+#one {
+  height: 70px; /* Sets the height of the box */
+  width: 70px; /* Sets the width of the box */
+  background-color: chocolate; /* Sets the background color */
+}
+
+#two {
+  height: 70px;
+  width: 70px;
+  background-color: blueviolet;
+}
+
+#three {
+  height: 70px;
+  width: 70px;
+  background-color: rgb(
+    30,
+    210,
+    63
+  ); /* Sets the background color using RGB values */
+}
+
+/* Styling all paragraph elements */
+p {
+  background-color: rgb(194, 203, 12); /* Sets the background color */
+  width: fit-content; /* Adjusts the width to fit the content */
+  position: relative; /* Sets the position for pseudo-elements */
+}
+
+/* Adding a pseudo-element before the content of #p1 */
+#p1::before {
+  content: ""; /* Mandatory property to activate the pseudo-element */
+  width: 100%; /* Sets the width of the pseudo-element */
+  height: 3px; /* Sets the height of the pseudo-element */
+  background-color: rgb(1, 2, 51); /* Sets the background color */
+  position: absolute; /* Positions the pseudo-element relative to its parent */
+  top: 100%; /* Places the pseudo-element below the parent element */
+}
+
+/* Adding a pseudo-element after the content of #p2 */
+#p2::after {
+  content: ""; /* Mandatory property to activate the pseudo-element */
+  width: 100%;
+  height: 3px;
+  background-color: rgb(12, 202, 34);
+  position: absolute;
+  top: 100%; /* Places the pseudo-element below the parent element */
+  left: 0; /* Aligns the pseudo-element to the left */
+}
+
+/* Styling the first line and first letter of #p3 */
+#p3::first-line,
+#p3::first-letter {
+  color: rgb(12, 203, 241); /* Sets the text color */
+}
+
+#p3::first-letter {
+  font-size: xx-large; /* Increases the font size of the first letter */
+}
+
+/* Styling the selected text of #p4 */
+#p4::selection {
+  background-color: chocolate; /* Changes the background color of selected text */
+}
+
+/* Styling elements with the class pseudo */
+.pseudo {
+  background-color: transparent; /* Makes the background transparent */
+}
+
+/* Changing the text color of #p5 when hovered */
+.pseudo#p5:hover {
+  color: rgb(235, 16, 16); /* Changes the text color on hover */
+}
+
+/* Styling a button when it is active (clicked) */
+button:active {
+  background-color: crimson; /* Changes the background color when the button is clicked */
+}
+
+/* Styling an input field when it is focused */
+input:focus {
+  background-color: blueviolet; /* Changes the background color when the input field is focused */
+}
+
+/* Styling the second child paragraph inside an element with the class para */
+.para p:nth-child(2) {
+  color: rgb(0,76,255); /* Changes the text color of the second child paragraph */
+}

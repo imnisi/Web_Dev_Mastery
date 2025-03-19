@@ -1,0 +1,37 @@
+* {
+  margin: 0; /* Removes default margin from all elements */
+  padding: 0; /* Removes default padding from all elements */
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+}
+
+html,
+body {
+  width: 100%; /* Sets the width of the html and body to occupy the full viewport width */
+  height: 100%; /* Sets the height of the html and body to occupy the full viewport height */
+}
+
+#main {
+  /* The following properties define a grid container and its behavior */
+  width: 100%; /* Makes the grid container span the full width of its parent */
+  height: 100%; /* Makes the grid container span the full height of its parent */
+  background-color: rgba(
+    24,
+    204,
+    204,
+    0.564
+  ); /* Sets a semi-transparent background color */
+  display: grid; /* Defines the container as a grid layout */
+  grid-template-columns: 200px 200px; /* Creates two columns, each 200px wide */
+  grid-template-rows: 200px 200px; /* Creates two rows, each 200px high */
+  align-items: center; /* Vertically centers the content inside each grid cell */
+  justify-items: center; /* Horizontally centers the content inside each grid cell */
+  align-content: center; /* Vertically centers the entire grid within the container */
+  justify-content: center; /* Horizontally centers the entire grid within the container */
+}
+
+.elem {
+  height: 100px; /* Sets the height of each grid item to 100px */
+  width: 100px; /* Sets the width of each grid item to 100px */
+  border: 2px solid black; /* Adds a 2px solid black border around each grid item */
+  background-color: brown; /* Sets the background color of each grid item to brown */
+}

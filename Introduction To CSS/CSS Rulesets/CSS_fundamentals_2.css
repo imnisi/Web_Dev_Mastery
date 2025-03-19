@@ -11,51 +11,50 @@ body {
 }
 
 p {
-  display: inline; /* Displays the element as an inline element */
-  background-color: burlywood; /* Sets the background color to burlywood */
+  display: inline; /* Displays the paragraph as an inline element */
+  background-color: burlywood; /* Fills the background with burlywood color */
 }
 
 p {
-  display: inline-block; /* Displays the element as an inline-block element */
+  display: inline-block; /* Displays the paragraph as an inline-block element */
   width: 90px; /* Sets the width to 90 pixels */
   height: 90px; /* Sets the height to 90 pixels */
 }
 
 a {
-  display: block; /* Displays the element as a block element */
+  display: block; /* Displays the anchor as a block element */
   width: 100px; /* Sets the width to 100 pixels */
 }
 
 #box1 {
   width: 300px; /* Sets the width to 300 pixels */
   height: 300px; /* Sets the height to 300 pixels */
-  background-color: blue; /* Sets the background color to blue */
+  background-color: blue; /* Fills the background with blue color */
   position: relative; /* Positions the element relative to its normal position */
 }
 
 #cube {
   width: 100px; /* Sets the width to 100 pixels */
   height: 100px; /* Sets the height to 100 pixels */
-  background-color: chartreuse; /* Sets the background color to chartreuse */
+  background-color: chartreuse; /* Fills the background with chartreuse color */
   position: absolute; /* Positions the element absolutely within its containing element */
-  left: 10%; /* Positions the element 10% from the left of its containing element */
-  /* it will go left with respect to Box not with respect to screen */
+  left: 10%; /* Moves the element 10% from the left edge of its containing element */
 }
 
 #img1 {
   width: 300px; /* Sets the width to 300 pixels */
   height: 300px; /* Sets the height to 300 pixels */
   background: url(https://images.unsplash.com/photo-1741439432848-ae1301dca116?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); /* Sets the background image */
-  background-size: cover; /* Scales the background image to cover the entire element */
-  background-position: center; /* Centers the background image */
+  background-size: cover; /* Scales the image to cover the entire element */
+  background-position: center; /* Centers the image within the element */
 }
 
 #img2 {
   width: 300px; /* Sets the width to 300 pixels */
   height: 300px; /* Sets the height to 300 pixels */
   background: url(https://plus.unsplash.com/premium_photo-1691938884993-cd87199d807b?q=80&w=2028&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); /* Sets the background image */
-  background-size: contain; /* Scales the background image to fit within the element */
-  background-repeat: no-repeat; /* Prevents the background image from repeating */
+  background-size: contain; /* Scales the image to fit within the element */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
 }
 
 #box2 {
@@ -65,5 +64,5 @@ a {
     to right bottom,
     rgb(223, 166, 60),
     yellow
-  ); /* Sets a linear gradient background */
+  ); /* Creates a gradient background */
 }

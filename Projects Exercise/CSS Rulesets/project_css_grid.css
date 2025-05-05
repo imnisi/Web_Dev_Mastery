@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body{
+    width: 100%;
+    height: 100%;
+}
+
+#main{
+    width: 100%;
+    height: 100%;
+    background-color: #dcd6d6c2;
+    display: grid;
+}
+
+.items{
+    background-color: #f44a4a;
+    border: 2px solid black;
+}

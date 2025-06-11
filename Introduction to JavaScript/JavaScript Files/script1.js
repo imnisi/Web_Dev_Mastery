@@ -31,7 +31,7 @@ console.error("Hii there!"); // for error message on console
 // Variables and Constants
 var num = 10;
 num = 20; // variables declared with var can be updated
-console.log("Number: ", num);
+console.log("Number: ", num); // 20
 
 const value = 10; // constants must be initialized at declaration
 // value = 20; // can't do this, will throw error
@@ -47,25 +47,26 @@ let entries = [
 let map = new Map(entries);
 console.log(map);
 
-var ar = [1, 2, 3, 4, 5];
-var br = ar; // Copies the reference, not the values, that means now br will also point to the address of the array where it stored in heap memory
+var arr = [1, 2, 3, 4, 5];
+var brr = arr; // Copies the reference, not the values, that means now brr will also point to the address of the array where it stored in heap memory
 
-console.log(br.pop()); // [1,2,3,4] Removes last element from br (and ar, since same reference)
-console.log(ar); // [1,2,3,4]
+console.log(brr.pop()); // [1,2,3,4] Removes last element from brr (and arr, since same reference)
+console.log(arr); // [1,2,3,4]
 
 // Spread operator: allows spreading elements of iterables (arrays, strings, objects)
 
 // Copying Arrays (by value, not reference)
-var arr = [1, 2, 3, 4, 5];
-var brr = [...arr]; //It copies the values of the arr not the reference of arr
-console.assertlog(brr); //[1,2,3,4,5]
-console.log(brr.pop()); // [1,2,3,4]
-console.log(arr); //[1,2,3,4,5]
+var arr1 = [1, 2, 3, 4, 5];
+var brr1 = [...arr1]; //It copies the values of the arr1 not the reference of arr1,
+// because the spread operator creates a shallow copy, it only copies top level values
+console.log(brr1); //[1,2,3,4,5]
+console.log(brr1.pop()); // [1,2,3,4]
+console.log(arr1); //[1,2,3,4,5]
 
 // Merging Arrays
-const arr1 = [1, 2];
-const brr1 = [3, 4];
-const merged = [...arr1, ...brr1];
+const arr2 = [1, 2];
+const brr2 = [3, 4];
+const merged = [...arr2, ...brr2];
 console.log(merged); // [1,2,3,4]
 
 // Spreading into function arguments
@@ -79,7 +80,10 @@ console.log(sum(...nums)); // 6
 // Copying Objects
 const obj1 = { a: 1, b: 2 };
 const copy = { ...obj1 };
-console.log(copy); // {a: 1, b:2}
+console.log(copy); // {a: 1, b:2}, Here spread operator only creates shallow copy
+copy.b = "Nisi";
+console.log(copy.b); // Nisi
+console.log(obj1.b); // 2
 
 // Merging Objects
 const obj = { a: 1, b: 2 };

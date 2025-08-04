@@ -4,14 +4,12 @@
  * This script covers:
  * - Function declarations, expressions, and arrow functions (ES5/ES6)
  * - First-class functions in JavaScript
+ * - Value types in JavaScript (undefined, not defined, null)
  * - Function parameters, arguments, default values, and destructuring
- * - Rest parameters and the arguments object
- * - Closures and function scope
- * - Higher-order functions and built-in array methods (map, filter, reduce)
- * - Immediately Invoked Function Expressions (IIFE)
- * - The call() method and method borrowing
- * - Practical function usage and interview concepts
- */
+ * - Rest parameters
+ * - Function scope (local/global)
+ * - Function as object (typeof)
+*/
 
 // Functions in JavaScript
 // - ES5: function declaration, function expression, anonymous function
@@ -44,7 +42,7 @@ greetings(sayHello, "Nisi"); // Hello Nisi, nice to meet you!
 // here sayHello is said to be a callback function
 
 function returnFunc() {
-  // here, returnFunc is a higher order function it is returning a different function
+  // here, returnFunc is a higher order function as it is returning a different function
   return function () {
     return "Hi there!";
   };
@@ -76,7 +74,7 @@ console.log(val()); // Hi there!
 // Function declaration: defines a named function using the function keyword
 // function with parameters
 function greet(nameParam) {
-  return `Hello ${nameParam}!`; // return value
+  return `Hello ${nameParam}!`; // Hello Nishant!
 }
 //calling the function
 console.log(greet("Nishant"));
@@ -86,7 +84,7 @@ function askMsg() {
   console.log(`Hi! how are you?`);
 }
 // calling the function
-askMsg();
+askMsg(); // Hi! how are you?
 
 function msg() {
   return `My name is Krishna.`;
@@ -141,11 +139,11 @@ const summation2 = (x) => 4; // implicit return
 
 // Single expression (implicit return):
 const square = (x) => x * x;
-console.log("Square is: ", square(4));
+console.log("Square is: ", square(4)); // Square is: 16
 
 // Multiple parameters:
 const fullName = (firstName, lastName) => `${firstName} ${lastName}`;
-console.log("My name is", fullName("Virat", "Kohli"));
+console.log("My name is", fullName("Virat", "Kohli")); // My Name is Virat Kohli
 
 // No parameter
 const greetMsg = () => console.log("Hi there, so pleased to meet you!");
@@ -174,10 +172,64 @@ console.log(greetWithDefaultArgOrder({ greeting: "Nice to meet you" })); // Nice
 // O/P→ "Nice to meet you Guest!"
 
 // Handling the case when no argument is passed (default to empty object)
-function greetWithDefaultNoArgOrder({ name = "guest", greeting = "Hello" } = {}) {
-// ={} provides a default empty object in case no arg is passed to function
+function greetWithDefaultNoArgOrder({
+  name = "guest",
+  greeting = "Hello",
+} = {}) {
+  // ={} provides a default empty object in case no arg is passed to function
   return `${greeting} ${name}!`;
 }
 console.log(greetWithDefaultNoArgOrder()); // for handling this case,
 // → "Hello Guest!"
- 
+
+// Rest Parameters: Allows a function to accept any number of arguments as an array
+function sumNum(...numbers) {
+  let total = 0;
+  for (let num of numbers) {
+    total += num;
+  }
+  return total;
+}
+console.log(`Sum : ${sumNum(1, 2, 3)}`); // 6
+console.log(`Sum : ${sumNum(1, 2, 3, 4, 5)}`); // 15
+console.log(`Sum : ${sumNum(10, 20, 30)}`); // 60
+
+// Using forEach method:
+function sumNumber(...numbers) {
+  let total = 0;
+  numbers.forEach((num) => (total += num)); // forEach() always returns undefined even if we use return keyword
+  return total;
+}
+console.log(`Sum : ${sumNumber(1, 2, 3, 10)}`); // 16
+console.log(`Sum : ${sumNumber(1, 2, 3, 4, 5, 20)}`); // 35
+console.log(`Sum : ${sumNumber(10, 20, 30, 50)}`); // 110
+
+// Using reduce() method for summing numbers:
+function sumNums(...numbers) {
+  return numbers.reduce((acc, curr) => acc + curr, 0);
+}
+console.log(`Sum : ${sumNums(1, 2, 3, 10, 50)}`); // 66
+console.log(`Sum : ${sumNums(1, 2, 3, 4, 5, 20, 10)}`); // 45
+console.log(`Sum : ${sumNums(10, 20, 30, 50, 100)}`); // 210
+
+// Global scope: variables declared outside any function are global
+let globalVar = "I am global";
+function showGlobal() {
+  console.log(globalVar);
+}
+showGlobal(); // I am global
+
+// Function Scope:
+// Local Scope: variables declared inside a function are not accessible outside
+function localScopeExample() {
+  let localVar = "I m local";
+  console.log(localVar);
+}
+localScopeExample(); // I m local
+// console.log(localVar);  Uncaught ReferenceError: localVar is not defined
+
+// Function as object: typeof returns "function"
+console.log(typeof greet); // "function"
+
+
+

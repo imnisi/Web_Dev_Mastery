@@ -1,27 +1,27 @@
 /**
- * Js Functions.js
+ * Js Functions Advanced.js
  * ----------
  * This script covers:
- * - arguments object
+ * - The arguments object (in traditional functions)
  * - Closures and function scope
  * - Higher-order functions and built-in array methods (map, filter, reduce)
  * - Immediately Invoked Function Expressions (IIFE)
  * - The call() method and method borrowing
- * - Practical function usage and interview concepts
+ * - Common pitfalls with call() and arrow functions
  */
 
 // Argument Object (Traditional Functions)
 // 'arguments' is an array-like object available inside all non-arrow functions
 function showArgs() {
   console.log(`No. of arguments: ${arguments.length}`); // 3
-  console.log("Argument Object: ", arguments);
-  // let arguments = {
-  // 0: "apple",
-  // 1: "banana",
-  // 2: "mango",
-  // length: 3
-  // Internally, Js does something like this:
-  // };
+  console.log("Arguments Object: ", arguments);
+  // Example of what arguments might look like internally:
+  // {
+  //   0: "Apple",
+  //   1: "Banana",
+  //   2: "Mango",
+  //   length: 3
+  // }
   for (let fruit of arguments) {
     console.log(fruit); // Apple, Banana, Mango
   }
@@ -35,7 +35,7 @@ function outerFunction(x) {
   };
 }
 const addNum = outerFunction(5); // outerFunction has finished!
-const sumVal = addNum(7); //  but x (5) is still remembered!
+const sumVal = addNum(7); // but x (5) is still remembered!
 console.log("Sum: ", sumVal); // Sum: 12
 
 function createCounter() {

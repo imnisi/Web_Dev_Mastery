@@ -83,7 +83,8 @@ console.log(squared); // [1, 4, 9, 16, 25]
 
 // Built-in higher-order functions: Functions accepting another function as a parameter or returning a function.
 
-// Filter: filter() takes a callback and returns an array of elements that pass the test
+// Filter: filter() takes a callback and returns an array of elements that pass the condition.
+// In filter, the length of the returned array can be same as the original array or not (less than that)
 const numsArr = [2, 3, 5, 9, 6, 12];
 const myNums = numsArr.filter((num) => num % 2 === 0);
 console.log("My Numbers: ", myNums); // My Numbers: [2, 6, 12]
@@ -170,7 +171,8 @@ console.log(`Publish: ${JSON.stringify(userBooks, null, 2)}`);
 //   }
 // ]
 
-// Map: map() takes a callback and returns a new array of elements
+// Map: map() takes a callback and returns a new array of elements.
+// In map the length of the returned array will be same as original array
 const numArray = [1, 2, 3, 4, 5, 7, 8, 9, 10];
 const newNumArray = numArray.map((x) => x * 2);
 console.log(newNumArray); // [2, 4, 6, 8, 10, 14, 16, 18, 20]
@@ -293,15 +295,15 @@ console.log(car1.getInfo.call(car2)); // Mahindra BE6 Ev
 console.log(car1.getInfo.call(car1)); // Tata Curvv Ev
 
 // Example3: Function with Parameters
-function greet(greet, punctuation) {
+function greetMessage(greet, punctuation) {
   return `${greet}, I am ${this.name}${punctuation}`;
 }
 
 const person3 = { name: "Ram" };
 const person4 = { name: "Shyam" };
 
-console.log(greet.call(person3, "Hello", "!")); // Hello, I am Ram!
-console.log(greet.call(person4, "Good morning", "!!!")); // Good morning, I am Shyam!!!
+console.log(greetMessage.call(person3, "Hello", "!")); // Hello, I am Ram!
+console.log(greetMessage.call(person4, "Good morning", "!!!")); // Good morning, I am Shyam!!!
 
 // Example4: Finding Maximum in Arrays
 const numbers1 = [10, 20, 30];
@@ -506,15 +508,15 @@ function createGreeting(greeting, punctuation) {
 // Traditional approach
 const sayHello = createGreeting("Hello", "!");
 const sayGoodbye = createGreeting("Goodbye", ".");
-console.log(sayHello("Alice"));
-console.log(sayGoodbye("Bob"));
+console.log(sayHello("Alice")); // Hello, Alice!
+console.log(sayGoodbye("Bob")); // Goodbye, Bob.
 
 function greet(greeting, punctuation, name) {
   return `${greeting}, ${name}${punctuation}`;
 }
 
 const boundHello = greet.bind(null, "Hello", "!"); // The two args will be assigned to two first vars in parameters
-const boundGoodbye = greet.bind(null, "Goodbye", "."); // he two args will be assigned to two first vars in parameter
+const boundGoodbye = greet.bind(null, "Goodbye", "."); // The two args will be assigned to two first vars in parameter
 console.log("Bound Hello: ", boundHello("Nisi")); // Bound Hello:  Hello, Nisi!
 console.log("Bound Goodbye: ", boundHello("Shyam")); // Bound Hello:  Hello, Shyam!
 
@@ -529,4 +531,3 @@ const bindHello = greeter.greet.bind(greeter, "Hello");
 const bindBye = greeter.greet.bind(greeter, "Bye");
 console.log("HelloMsg: ", bindHello("!", "Nisi")); // HelloMsg:  Welcome! Hello, Nisi!
 console.log("ByeMsg: ", bindBye(".", "Mohan")); // ByeMsg:  Welcome! Bye, Mohan.
-

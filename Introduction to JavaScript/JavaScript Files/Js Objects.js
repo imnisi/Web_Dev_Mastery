@@ -11,7 +11,7 @@
 
 // Object Syntax:
 
-// Creating Objects
+//* Creating Objects
 
 //* 1. Object Literal Syntax: In object literal syntax, we can define our keys as well as values.
 //* By default, JS treats keys as strings.
@@ -32,7 +32,7 @@ console.log(person.getName()); // Krishna
 //* Disadvantage: It doesn't act as a blueprint or structure. If we want to create another object of the same shape or structure, then
 //* we would have to repeat the same code again and again to create additional objects.
 
-// Constructor Function:
+//* Constructor Function:
 function CreatePerson(name, age, gender) {
   this.name = name;
   this.age = age;
@@ -44,12 +44,12 @@ function CreatePerson(name, age, gender) {
 
 const person1 = new CreatePerson("Kanha", 40, "male");
 console.log(person1.name); // Kanha
-console.log(person1.getDetails());
+console.log(person1.getDetails()); // Name: Kanha, Age: 40, Gender: male
 
 const person2 = new CreatePerson("Shyam", 50, "male");
-console.log(person2.getDetails());
+console.log(person2.getDetails()); // Name: Shyam, Age: 50, Gender: male
 
-//* Note:
+//! Note:
 //* For regular function names, use camelCase (for example: getName(), printThis(), greetMsg()), etc.
 //* For constructor function names, use PascalCase (for example: CreatePerson(), Person(), User()), etc.
 //* This naming convention helps developers identify intent and usage of different functions/methods.
@@ -57,7 +57,7 @@ console.log(person2.getDetails());
 ///* Advantage: The advantage of a constructor function over an object literal is that it provides a blueprint and based on that blueprint,
 //*  we can create multiple objects with the same structure. It improves code reusability.
 
-// Class Syntax (ES6+):
+//* Class Syntax (ES6+):
 class CreateHuman {
   // constructor is responsible for the base initialization
   constructor(name, age, gender, country) {
@@ -109,12 +109,12 @@ console.log(`Person Details: ${personDetails}`); // Person Details: Madhav, 50, 
 
 // Accessing and Modifying Properties:
 
-// Dot Notation:
+//* Dot Notation:
 const obj = { name: "Kanha" };
 console.log("Name:", obj.name); // Name: "Kanha"
 obj.age = 30; // Adding new property
 
-// Bracket Notation:
+//* Bracket Notation:
 const obj1 = { name: "Murari" };
 obj1["full name"] = "Krishna Murari";
 console.log(obj1["name"]); // "Murari"
@@ -132,13 +132,13 @@ const jsUser1 = {
   lastLoginDays: ["Monday", "Tuesday"],
 };
 
-console.log("Js User first name:", jsUser1.fname); //  Radhe
+console.log("Js User first name:", jsUser1.fname); // Js User first name: Radhe
 
-console.log("Js User last name:", jsUser1["lname"]); // Mohan { As we know internally JS treats key as a string, so when we use square
+console.log("Js User last name:", jsUser1["lname"]); // Js User last name: Mohan { As we know internally JS treats key as a string, so when we use square
 // bracket, we must give the key in string form, but in dot notation, it is by default treated as string}
 
 // for "full Name", we can't use dot notation , as it will give error, so here we have to access the key using square bracket.
-console.log("Js User full name:", jsUser1["full Name"]); // Radhe
+console.log("Js User full name:", jsUser1["full Name"]); // Js User full name: Radhe Mohan
 
 //* Interview Question: Declare a symbol variable and use that symbol as a key in an object.
 
@@ -167,16 +167,16 @@ const jsUser3 = {
 };
 console.log("Symbol Key:", jsUser3[mySymbol]); // Symbol Key: sKeyNew
 
-// Overriding the value:
+//* Overriding the value:
 jsUser3.name = "Nishant";
-console.log("Overridden Name:", jsUser3.name);
+console.log("Overridden Name:", jsUser3.name); // Overridden Name: Nishant
 
-// Object.freeze: Locking the values of the object
+//* Object.freeze: Locking the values of the object
 Object.freeze(jsUser3);
 jsUser3.name = "Kishu"; // It will not throw an error, but the change will not be applied
 console.log(jsUser3.name); // It will still show "Nishant" not "Kishu" because the object is frozen
 
-// Dynamic property access
+//* Dynamic property access
 const prop = "name";
 console.log(obj1[prop]); // "Murari"
 
@@ -190,7 +190,7 @@ const obj3 = {};
 (obj3.id = "123abc"), (obj3.name = "Nisi"), (obj3.isLoggedIn = false);
 console.log("Non Singleton Object:", obj3);
 
-// Nesting of Objects:
+//* Nesting of Objects:
 const regularUser = {
   email: "some@gmail.com",
   fullName: {

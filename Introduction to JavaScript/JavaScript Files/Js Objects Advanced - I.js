@@ -1,5 +1,5 @@
 /**
- * Js Object Advanced.js
+ * Js Object Advanced - I.js
  * -------------
  * This script demonstrates:
  * Description: Examples and notes about object behavior (references, comparison, cloning, methods,destructuring, and JSON).
@@ -22,13 +22,13 @@ const object1 = { 1: "a", 2: "b", 3: "c" };
 const object2 = { 4: "d", 5: "e", 6: "f" };
 
 //* Using Object.assign(): copies properties from source object(s) to target object
+const combinedObject1 = Object.assign({}, object1, object2); // shallow clone
+console.log("Combined Object:", combinedObject1); // {1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f'}
+
 const target = { a: 1 };
 const source = { b: 2, c: 3 };
 Object.assign(target, source);
 console.log(target); // { a: 1, b: 2, c: 3 }
-
-const combinedObject1 = Object.assign({}, object1, object2); // shallow clone
-console.log("Combined Object:", combinedObject1); // {1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f'}
 
 //* Using spread operator
 const combinedObject2 = { ...object1, ...object2 }; // shallow clone
@@ -75,11 +75,11 @@ const course = {
 
 // Basic destructuring
 const { courseInstructor } = course;
-console.log("Course Instructor: ", courseInstructor);
+console.log("Course Instructor: ", courseInstructor); // Course Instructor: Hitesh
 
 // With renaming
 const { courseInstructor: Instructor } = course;
-console.log("Course Instructor:", Instructor);
+console.log("Course Instructor:", Instructor); // Course Instructor: Hitesh
 
 const newPerson = {
   name: "Yashoda Nandan",

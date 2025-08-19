@@ -1,12 +1,24 @@
 /**
  * Js Objects Advanced - II.js
- * --------------------------------------------
- * Demonstrates advanced object concepts and prototypal inheritance in JavaScript.
- * Topics: object creation, Object.create, prototype chain, wrapper objects, classes and prototypes.
+ * ------------------------------------------------
+ * This script demonstrates:
+ * Description:
+ *   Demonstrates advanced object and prototypal inheritance concepts in JavaScript.
+ *
+ * Topics:
+ *   - object creation and Object.create
+ *   - prototype chain and __proto__
+ *   - wrapper objects (String, Number, Boolean)
+ *   - constructor prototype methods vs instance methods
+ *   - ES6 classes and prototypes
  */
 
-// Prototypal inheritance
-// As we know, in JS everything is an object. Let's explore why this is the case?
+//* Prototypal inheritance
+// As we know, in JS everything is an object. Let's explore why this is the case.
+
+//* Every object in JavaScript has a prototype, which is another object from which
+//* it inherits properties and methods.
+
 const person = {
   fname: "Radha",
   lname: "Mohan",
@@ -33,75 +45,83 @@ const person2 = Object.create(person); // Create person2 to inherit from person,
 
 // Here `person2` is an empty object and has no own properties, yet it can access properties from `person`
 // because `person` is in its prototype chain.
-console.log("Person2 is :", person2); // {}
+console.log("Person2 is:", person2); // {}
 
 console.log(person2.fname); // Radha
 console.log(person2.lname); // Mohan
 console.log(person2.getFullName()); // Radha Mohan
 
-// Prototype chain explanation:
+//* Prototype chain explanation:
 // When accessing p1.<property>, JavaScript first looks for that property on p1 itself.
-// If not found, it walks p1.__proto__ and continues up the chain until it finds the property
+// If not found, it walks up p1.__proto__ and continues up the chain until it finds the property
 // or reaches null.
 
-// we have either a base object or a base class
+//* We have either a base object or a base class
+
 const p1 = {
   fname: "Kishan",
   lname: "Kanhaiya",
   __proto__: {}, // Every object has an internal prototype slot (commonly shown as __proto__).
 };
 
-// When we write p1.<property>, so what js does, it first searches that property in its own object properties,
-// if it's find, it returns, if it doesn't find in that level, then JS searches in __proto__ object. If
-// it finds there , then it is good and if it doesn't , it will throw error.
+// When we write p1.<property>, JavaScript first searches for that property in its own object properties.
+// If it finds it, it returns the value. If it doesn't find it at that level, then JavaScript searches
+// in the __proto__ object. If it finds it there, then it's good. If it doesn't find it anywhere,
+// it will return undefined (or throw an error if trying to call a method).
 
-// let's talk about p1 and p2 objects
-const p2 = Object.create(p1); // This statement does the below thing
-// Since p2 is an empty object, so that line make p2={
-// const p2 = {__proto__ : p1} // it actually equals the P1 object in __proto__ object
-// }
-//That's why we can access the properties of p1 using p2 object, we can see in Js console
+// Let's talk about p1 and p2 objects
+
+const p2 = Object.create(p1); // This statement does the following:
+// Since p2 is an empty object, that line makes p2 = {__proto__: p1}
+// It actually equals the p1 object in the __proto__ property
+// That's why we can access the properties of p1 using p2 object, as we can see in the JS console
+
 console.log(p2);
 // {}
 // [[Prototype]]: Object
-// fname:"Kishan"
-// lname:"Kanhaiya"
-// [[Prototype]]: Object
+//   fname: "Kishan"
+//   lname: "Kanhaiya"
+//   [[Prototype]]: Object
 
 console.log(p2.fname); // Kishan
 
-console.log("p1 lname before: ", p1.lname); // p1 lname before:  Kanhaiya
+console.log("p1 lname before:", p1.lname); // p1 lname before: Kanhaiya
 p2.__proto__.lname = "Murari";
-// Since __proto__ object of p2 is pointing to the reference of p1 object, so using p2, we have changed the value of p1
+// Since the __proto__ object of p2 is pointing to the reference of p1 object,
+// using p2, we have changed the value of p1
 console.log("p1 lname after:", p1.lname); // p1 lname after: Murari
 
 // Features of Prototypal Inheritance:
 let fname = "Nisi Kumar";
 console.log("Type of fname is", typeof fname); // Type of fname is string
 
-// Wrapper objects (String, Number, Boolean):
-// Primitive values have methods because temporarily JS wraps them with their respective
+//* Wrapper objects (String, Number, Boolean):
+// Primitive values have methods because JavaScript temporarily wraps them with their respective
 // object wrapper (e.g., new String(...)) so prototype methods are available.
 
-//let fname = "Nisi Kumar"; This is currently of primitive data type i.e, string
+// let fname = "Nisi Kumar"; This is currently of primitive data type, i.e., string
 
-// But whenever we write like this, Js uses its wrapper classes to create an object out of it.
-// which makes the above statement like this:
-// let fname =  new String("Nisi Kumar"); // now fname is an object of String class
+// But whenever we access methods or properties, JavaScript uses its wrapper classes to create an object out of it,
+// which makes the above statement behave like this:
+// let fname = new String("Nisi Kumar"); // now fname behaves like an object of String class
+
 console.log(fname); // Nisi Kumar
-// How can we verify that fname is object of String class?
-// So, below statement verifies that fname here is the object of string class, as its __proto__ pointing
-// to the String class , that means fname = {__proto__ : String}
-console.log(fname.__proto__); // String {'', anchor: ƒ, at: ƒ, big: ƒ, blink: ƒ, …}
+
+// How can we verify that fname behaves like an object of String class?
+// The below statement verifies that fname here behaves like an object of String class,
+// as its __proto__ points to the String class, which means fname = {__proto__: String.prototype}
+console.log(fname.__proto__); // String {'', anchor: ƒ, at: ƒ, big: ƒ, blink: ƒ, …}
 
 console.log(fname.at(2)); // s
-// All the properties and methods of class is live inside prototype property
-console.log(String.prototype); // for getting the prototype of any class
-// whenever we create any object of let's say String class, then the String class prototype will be assigned to
-// __proto__ of that object
-// for example: fname.__proto__ = String.prototype
 
-// Deep dive: prototypal inheritance chain example
+// All the properties and methods of a class live inside the prototype property
+console.log(String.prototype); // for getting the prototype of any class
+
+// Whenever we create any object of, let's say, String class, then the String class prototype will be assigned to
+// the __proto__ of that object
+// For example: fname.__proto__ = String.prototype
+
+//* Deep dive: prototypal inheritance chain example
 const pObject1 = {
   xp1: "I am inside pObject1",
 };
@@ -116,37 +136,40 @@ const pObject3 = {
   __proto__: pObject2,
 };
 
-// now if we try to search the pObject3.xp1, so at first it will search in its own properties,if no, then it goes to pObject3
-// here it searches for xp1, if it is not found, it will got to pObject1 object, so now here it will find ( in case if it is not find, )
-// it will go to the top level object that is, Object class
-//So the scenario is:
-// pObject3.__proto__ -> pObject2 ---> pObject2.__proto__ -> pObject1 --->pObject1.__proto__->Object.__proto__ = null(base class)
-// This is called prototypal Inheritance and the above structure is prototypal chain
+//* Now if we try to search for pObject3.xp1, JavaScript will first search in its own properties.
+//* If not found, then it goes to pObject2. Here it searches for xp1. If it is not found,
+//* it will go to pObject1 object. Now here it will find it (in case it is not found,
+//* it will go to the top-level object, which is the Object class).
 
-// By default, any class or any thing in JS , the __proto__ of each and everything is pointed to Object at last
-// The __proto__ of Object is 'null"
-// SO JS will go in search for the properties in the prototypes until and unless it will not find null.
+//* So the scenario is:
+//* pObject3.__proto__ -> pObject2 -> pObject2.__proto__ -> pObject1 -> pObject1.__proto__ -> Object.__proto__ = null (base class)
+//* This is called prototypal inheritance and the above structure is the prototypal chain.
+
+//* By default, any class or any thing in JavaScript, the __proto__ of each and everything points to Object at last.
+//* The __proto__ of Object is 'null'.
+//* So JavaScript will search for properties in the prototypes until it finds null.
 
 let textString = "hey"; // primitive string
 
- // it will point to String class
+// It will point to String class
 console.log(textString.__proto__); // String {'', anchor: ƒ, at: ƒ, big: ƒ, blink: ƒ, …}
 
 // It will point to the Object ultimately
-console.log(textString.__proto__.__proto__); // {__defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, __lookupSetter__: ƒ, …}
+console.log(textString.__proto__.__proto__); // {__defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, __lookupSetter__: ƒ, …}
 
-// textString.__proto__ = String.__proto__ = Object.__proto__ = null
-// Prototype of Object is always null.
-// That means all the stuffs originated from Object
-// Same for other Wrapper classes like Number and Boolean
+//* textString.__proto__ = String.prototype -> String.prototype.__proto__ = Object.prototype -> Object.prototype.__proto__ = null
+//* Prototype of Object is always null.
+//* That means all things originate from Object.
+//* Same for other wrapper classes like Number and Boolean.
 
+//* So in JavaScript, that's why we say everything is an object because the base of everything is the Object class.
+//* That means everything in JavaScript originates from or inherits from the Object class.
+//* That's why everything in JavaScript is an object, even functions.
 
-// SO in Js, that's why we say everything js is object because the base of of everything is Object Class
-// That means everything in Js originates or inherits from the Object class, that's why everything in JS is object even functions
+//! Note: We should not manipulate __proto__ as developers. Although we can understand it,
+//! do not try to change or modify it, otherwise unintended bugs may arise.
 
-//! Note: we should not manipulate __proto__ as a developer, although we can understand but do not try to change or modify, otherwise unintended bugs may arise
-
-// we can use Object.Create() built in function instead
+//* We can use Object.create() built-in function instead.
 
 class Student {
   constructor(name) {
@@ -160,34 +183,107 @@ class Student {
 
 console.log(Student.prototype);
 
-// now if we create any object of Student class , its __proto__  will point to the Student class prototype
+// Now if we create any object of Student class, its __proto__ will point to the Student class prototype
 const s1 = new Student("Nishant");
 console.log(s1.__proto__);
 
-// The `new` keyword sets <obj>.__proto__ = <ClassName>.prototype
+//* The `new` keyword sets <obj>.__proto__ = <ClassName>.prototype
 // so instances can access methods defined on the prototype.
 
-//  now we can access the method getName() using s1
+// Now we can access the method getName() using s1
 console.log(s1.getName()); // I am inside getName method
 console.log(s1.__proto__.getName()); // I am inside getName method
 
-s2 = { __proto__: Student }; // It is treating it as a function
-console.log(s2) // Function {}
+let s2 = { __proto__: Student }; // It is treating Student as a function
+console.log(s2); // Function {}
 
-s2 = { __proto__: Student.prototype }; // here we are manually assign the Student class prototype in the __proto__ of s2,
+s2 = { __proto__: Student.prototype }; // Here we are manually assigning the Student class prototype to the __proto__ of s2
 
-// so we can access the properties and method as well
-console.log(s2); // Student {}
+// So we can access the properties and methods as well
+console.log(s2); // Student {}
 console.log(s2.getName()); // I am inside getName method
 
-// Difference between __proto__ and prototype:
-// for objects we use __proto__ and for classes we use prototype, that means __proto__ of object points towards
-// the prototype of base class
+//* Difference between __proto__ and prototype:
+// For objects we use __proto__ and for classes we use prototype.
+// That means __proto__ of an object points towards the prototype of the base class.
 
-// What if we do:
-s1.__proto__ = null; // This breaks the prototype chain for s1, and now s1 is no longer the object of Student class
+//* What if we do:
+s1.__proto__ = null; // This breaks the prototype chain for s1, and now s1 is no longer an object of Student class
 
 console.log(s1 instanceof Student); // false (chain broken)
 console.log(s2 instanceof Student); // true
 
-// That's how we got know that when an object is created, it inherited which class
+// That's how we can know which class an object inherited from.
+
+//* Some more concepts about prototypal Inheritance:
+
+const animal = {
+  speak: function () {
+    console.log("Some sound");
+  },
+};
+
+const dog = Object.create(animal);
+dog.breed = "Golden Retriever";
+
+dog.speak(); // "Some sound" - inherited from animal
+
+//* Constructor Function Prototype
+function Human1(name) {
+  // Prototype Method - Memory Efficient:
+  this.name = name;
+}
+
+Human1.prototype.greet = function () {
+  // ONE function shared by ALL instances
+  return `Hello, I'm ${this.name}`;
+};
+
+const human1 = new Human1("John");
+const human2 = new Human1("Jane");
+const human3 = new Human1("Bob");
+
+// All persons share the SAME greet function
+console.log(human1.greet === human2.greet); // true - same function!
+console.log(human1.greet === human3.greet); // true - same function!
+
+// The above code can also be written like this:
+function Human2(name) {
+  // Not recommended
+  this.name = name;
+  this.greet = function () {
+    // New function created for EACH instance!
+    return `Hello, I'm ${this.name}`;
+  };
+}
+
+const per1 = new Human2("John");
+const per2 = new Human2("Jane");
+const per3 = new Human2("Bob");
+
+// Each human has their OWN copy of the greet function
+console.log(per1.greet === per2.greet); // false - different functions!
+console.log(per1.greet === per3.greet); // false - different functions!
+
+//* So, The prototype approach is the standard, recommended way because it's more memory efficient, enables better inheritance patterns
+
+// Prototypal Inheritance using ES6 class
+class CreateHumanClass {
+  constructor(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.printMyName = (greet) => {
+      console.log(`${greet} ${this.firstName} ${this.lastName}`);
+    };
+  }
+  printFullName() {
+    console.log(`My Name is ${this.firstName} ${this.lastName}`);
+  }
+}
+
+const male = new CreateHumanClass("Nishant", "Kumar");
+const female = new CreateHumanClass("Surbhi", "Deshmukh"); 
+console.log(male.printMyName("Hello!")); // Hello! Nishant Kumar
+console.log(female.printMyName("Hello!")); // Hello! Surbhi Deshmukh
+console.log(male.printFullName()); // My Name is Nishant Kumar
+console.log(female.printFullName()); // My Name is Surbhi Deshmukh

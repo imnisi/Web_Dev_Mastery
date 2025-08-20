@@ -5,16 +5,16 @@
  * Description:
  *   Demonstrates advanced object and prototypal inheritance concepts in JavaScript.
  *
- * Topics:
- *   - object creation and Object.create
- *   - prototype chain and __proto__
- *   - wrapper objects (String, Number, Boolean)
- *   - constructor prototype methods vs instance methods
+ * Topics Covered:
+ *   - Object creation and Object.create()
+ *   - Prototype chain and __proto__
+ *   - Wrapper objects (String, Number, Boolean)
+ *   - Constructor prototype methods vs instance methods
  *   - ES6 classes and prototypes
  */
 
-//* Prototypal inheritance
-// As we know, in JS everything is an object. Let's explore why this is the case.
+//* Prototypal Inheritance
+// In JavaScript, almost everything is an object. Let's explore why this is the case.
 
 //* Every object in JavaScript has a prototype, which is another object from which
 //* it inherits properties and methods.
@@ -27,7 +27,7 @@ const person = {
   },
 };
 
-console.log("Person Details: ", person); // Person Details: {fname: 'Radha', lname: 'Mohan', getFullName: ƒ}
+console.log("Person Details:", person); // Person Details: {fname: 'Radha', lname: 'Mohan', getFullName: ƒ}
 console.log(`${person.fname}`); // Radha
 console.log(person.getFullName()); // Radha Mohan
 
@@ -35,7 +35,7 @@ const person1 = {
   fname: "Shyam",
   lname: "Sundar",
   getFullName() {
-    // person1 repeats the same method as `person` (violates DRY Principle: Don't Repeat Yourself).
+    //? person1 repeats the same method as `person` (violates DRY Principle: Don't Repeat Yourself).
     // We'll later demonstrate sharing behavior via prototypes instead of duplicating methods.
     return `${this.fname} ${this.lname}`;
   },
@@ -145,7 +145,7 @@ const pObject3 = {
 //* pObject3.__proto__ -> pObject2 -> pObject2.__proto__ -> pObject1 -> pObject1.__proto__ -> Object.__proto__ = null (base class)
 //* This is called prototypal inheritance and the above structure is the prototypal chain.
 
-//* By default, any class or any thing in JavaScript, the __proto__ of each and everything points to Object at last.
+//* By default, for any class or anything in JavaScript, the __proto__ of each and everything points to Object at last.
 //* The __proto__ of Object is 'null'.
 //* So JavaScript will search for properties in the prototypes until it finds null.
 
@@ -265,7 +265,7 @@ const per3 = new Human2("Bob");
 console.log(per1.greet === per2.greet); // false - different functions!
 console.log(per1.greet === per3.greet); // false - different functions!
 
-//* So, The prototype approach is the standard, recommended way because it's more memory efficient, enables better inheritance patterns
+//? So, The prototype approach is the standard, recommended way because it's more memory efficient, enables better inheritance patterns
 
 // Prototypal Inheritance using ES6 class
 class CreateHumanClass {
@@ -276,14 +276,76 @@ class CreateHumanClass {
       console.log(`${greet} ${this.firstName} ${this.lastName}`);
     };
   }
+
   printFullName() {
     console.log(`My Name is ${this.firstName} ${this.lastName}`);
   }
 }
 
 const male = new CreateHumanClass("Nishant", "Kumar");
-const female = new CreateHumanClass("Surbhi", "Deshmukh"); 
+const female = new CreateHumanClass("Surbhi", "Deshmukh");
+
 console.log(male.printMyName("Hello!")); // Hello! Nishant Kumar
 console.log(female.printMyName("Hello!")); // Hello! Surbhi Deshmukh
 console.log(male.printFullName()); // My Name is Nishant Kumar
 console.log(female.printFullName()); // My Name is Surbhi Deshmukh
+
+//* Practical Examples:
+const proto = { greeting: "Hello" };
+const personObj = Object.create(proto);
+personObj.name = "Krishna";
+
+// Accessing properties
+console.log(personObj.name); // "Krishna" (own property)
+console.log(personObj.greeting); // "Hello" (inherited from proto)
+
+// Check where properties come from
+console.log(personObj.hasOwnProperty("name")); // true
+console.log(personObj.hasOwnProperty("greeting")); // false
+
+// We can modify the prototype and it affects all objects linked to it
+proto.greeting = "Hi there!";
+console.log(personObj.greeting); // "Hi there!" - changed!
+
+// You can override inherited properties
+personObj.greeting = "My own greeting";
+console.log(personObj.greeting); // "My own greeting" (now obj has its own greeting)
+console.log(proto.greeting); // "Hi there!" (proto unchanged)
+
+//* Real-World Example:
+const animalObj = {
+  eat: function () {
+    console.log(`${this.name} is eating`);
+  },
+
+  sleep: function () {
+    console.log(`${this.name} is sleeping`);
+  },
+};
+
+// Creating specific animals that inherit from animalObj
+const doggy = Object.create(animalObj);
+doggy.name = "Chiku";
+doggy.bark = function () {
+  console.log("Woof!");
+};
+
+const cat = Object.create(animalObj);
+cat.name = "Billu";
+cat.meow = function () {
+  console.log("Meow");
+};
+
+// Both can use inherited methods
+doggy.eat(); // "Chiku is eating"
+cat.sleep(); // "Billu is sleeping"
+
+// And their own methods
+doggy.bark(); // "Woof!"
+cat.meow(); // "Meow!"
+
+//* Key Takeaways: Why Use Object.create()?
+// Memory Efficiency: Multiple objects can share the same prototype without duplicating methods
+// Dynamic Updates: Changes to the prototype affect all objects that inherit from it
+// Clean Inheritance: Creates clear prototype relationships
+

@@ -12,9 +12,9 @@
 // Object Syntax:
 
 //* Creating Objects
-
 //* 1. Object Literal Syntax: In object literal syntax, we can define our keys as well as values.
 //* By default, JS treats keys as strings.
+
 const person = {
   name: "Krishna",
   age: 30,
@@ -33,6 +33,7 @@ console.log(person.getName()); // Krishna
 //* we would have to repeat the same code again and again to create additional objects.
 
 //* Constructor Function:
+
 function CreatePerson(name, age, gender) {
   this.name = name;
   this.age = age;
@@ -50,14 +51,15 @@ const person2 = new CreatePerson("Shyam", 50, "male");
 console.log(person2.getDetails()); // Name: Shyam, Age: 50, Gender: male
 
 //! Note:
-//* For regular function names, use camelCase (for example: getName(), printThis(), greetMsg()), etc.
-//* For constructor function names, use PascalCase (for example: CreatePerson(), Person(), User()), etc.
-//* This naming convention helps developers identify intent and usage of different functions/methods.
+//? For regular function names, use camelCase (for example: getName(), printThis(), greetMsg()), etc.
+//? For constructor function names, use PascalCase (for example: CreatePerson(), Person(), User()), etc.
+//? This naming convention helps developers identify intent and usage of different functions/methods.
 
-///* Advantage: The advantage of a constructor function over an object literal is that it provides a blueprint and based on that blueprint,
+//* Advantage: The advantage of a constructor function over an object literal is that it provides a blueprint and based on that blueprint,
 //*  we can create multiple objects with the same structure. It improves code reusability.
 
 //* Class Syntax (ES6+):
+//
 class CreateHuman {
   // constructor is responsible for the base initialization
   constructor(name, age, gender, country) {
@@ -81,6 +83,7 @@ console.log(human.getHumanDetails()); // Name: Murli, age: 10, gender: male, cou
 console.log(human.greet()); // Good Morning!
 
 //* Factory function: Returns a new object similar to a constructor function, but does not use the "new" keyword.
+
 function createHuman(name, age, color) {
   return {
     name: name,
@@ -107,16 +110,18 @@ console.log(`Person4: ${JSON.stringify(person4, null, 2)}`);
 let personDetails = person4.getPersonDetails();
 console.log(`Person Details: ${personDetails}`); // Person Details: Madhav, 50, white
 
-// Accessing and Modifying Properties:
+//* Accessing and Modifying Properties:
 
-//* Dot Notation:
+//? Dot Notation:
 const obj = { name: "Kanha" };
+
 console.log("Name:", obj.name); // Name: "Kanha"
 obj.age = 30; // Adding new property
 
-//* Bracket Notation:
+//? Bracket Notation:
 const obj1 = { name: "Murari" };
 obj1["full name"] = "Krishna Murari";
+
 console.log(obj1["name"]); // "Murari"
 // Useful for properties with spaces
 console.log(obj1["full name"]); // Krishna Murari
@@ -168,29 +173,38 @@ const jsUser3 = {
 console.log("Symbol Key:", jsUser3[mySymbol]); // Symbol Key: sKeyNew
 
 //* Overriding the value:
+
 jsUser3.name = "Nishant";
 console.log("Overridden Name:", jsUser3.name); // Overridden Name: Nishant
 
 //* Object.freeze: Locking the values of the object
+
 Object.freeze(jsUser3);
 jsUser3.name = "Kishu"; // It will not throw an error, but the change will not be applied
 console.log(jsUser3.name); // It will still show "Nishant" not "Kishu" because the object is frozen
 
 //* Dynamic property access
+
 const prop = "name";
 console.log(obj1[prop]); // "Murari"
 
 //* Singleton object: creating a plain object using the Object constructor. It ensures only one object exists throughout the application life time.
 //* (This simply returns a single plain object instance; terminology varies.)
+
 const obj2 = new Object(); // plain object created via constructor or Singleton Object
 console.log("Singleton Object:", obj2);
 
 //* Non-Singleton Object: A Non-singleton object, where each instantiation creates a new independent object.
+
 const obj3 = {};
-(obj3.id = "123abc"), (obj3.name = "Nisi"), (obj3.isLoggedIn = false);
+obj3.id = "123abc";
+obj3.name = "Nisi";
+obj3.isLoggedIn = false;
+
 console.log("Non Singleton Object:", obj3);
 
 //* Nesting of Objects:
+
 const regularUser = {
   email: "some@gmail.com",
   fullName: {
@@ -200,6 +214,7 @@ const regularUser = {
     },
   },
 };
+
 console.log(JSON.stringify(regularUser.fullName, null, 2));
 // Output -> {
 //   "userFullName": {
@@ -215,4 +230,3 @@ console.log(JSON.stringify(regularUser.fullName.userFullName, null, 2));
 // }
 
 console.log(regularUser.fullName.userFullName.firstName); // Radhe
-

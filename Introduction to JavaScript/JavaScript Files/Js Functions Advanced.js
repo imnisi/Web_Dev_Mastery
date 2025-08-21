@@ -10,8 +10,10 @@
  * - Common pitfalls with call(), apply(), bind(), and arrow functions
  */
 
-// Argument Object (Traditional Functions)
-// 'arguments' is an array-like object available inside all non-arrow functions
+//* Argument Object (Traditional Functions):
+
+//? 'arguments' is an array-like object available inside all non-arrow functions
+
 function showArgs() {
   console.log(`No. of arguments: ${arguments.length}`); // 3
   console.log("Arguments Object: ", arguments);
@@ -26,14 +28,17 @@ function showArgs() {
     console.log(fruit); // Apple, Banana, Mango
   }
 }
+
 showArgs("Apple", "Banana", "Mango");
 
-// Closure: A function remembers the variables from its lexical scope (surrounding scope) even after the outer function has finished
+//* Closure: A function remembers the variables from its lexical scope (surrounding scope) even after the outer function has finished.
+
 function outerFunction(x) {
   return function innerFunction(y) {
     return x + y;
   };
 }
+
 const addNum = outerFunction(5); // outerFunction has finished!
 const sumVal = addNum(7); // but x (5) is still remembered!
 console.log("Sum: ", sumVal); // Sum: 12
@@ -47,6 +52,7 @@ function createCounter() {
     getCount: () => count, // getCount: method
   };
 }
+
 const counter = createCounter();
 // counter is now an object
 // function Returning an Object (Dot Needed for Methods)
@@ -65,8 +71,10 @@ function outer() {
 const message = outer();
 message(); // Hello From Closure!
 
-// Higher-Order Functions: Functions that take other functions as arguments or return functions
-// Function as parameter:
+//* Higher-Order Functions: Functions that take other functions as arguments or return functions.
+
+//* Function as parameter:
+
 function operations(arr, callback) {
   let resultantArray = [];
   for (let num of arr) {
@@ -75,16 +83,18 @@ function operations(arr, callback) {
   // for (let i = 0; i < arr.length; i++) { resultantArray[i] = callback(arr[i]); }
   return resultantArray;
 }
+
 const numbers = [1, 2, 3, 4, 5];
 const doubled = operations(numbers, (x) => x * 2);
 const squared = operations(numbers, (x) => x * x);
 console.log(doubled); // [2, 4, 6, 8, 10]
 console.log(squared); // [1, 4, 9, 16, 25]
 
-// Built-in higher-order functions: Functions accepting another function as a parameter or returning a function.
+//* Built-in higher-order functions: Functions accepting another function as a parameter or returning a function.
 
-// Filter: filter() takes a callback and returns an array of elements that pass the condition.
-// In filter, the length of the returned array can be same as the original array or not (less than that)
+//* Filter: filter() takes a callback and returns an array of elements that pass the condition.
+//* In filter, the length of the returned array can be same as the original array or not (less than that)
+
 const numsArr = [2, 3, 5, 9, 6, 12];
 const myNums = numsArr.filter((num) => num % 2 === 0);
 console.log("My Numbers: ", myNums); // My Numbers: [2, 6, 12]
@@ -155,6 +165,7 @@ console.log(`Genre: ${JSON.stringify(userBooks, null, 2)}`);
 userBooks = books.filter(
   (book) => book.publish >= 2000 && book.edition === "Revised"
 );
+
 console.log(`Publish: ${JSON.stringify(userBooks, null, 2)}`);
 // op -> Publish: [
 //   {
@@ -171,13 +182,15 @@ console.log(`Publish: ${JSON.stringify(userBooks, null, 2)}`);
 //   }
 // ]
 
-// Map: map() takes a callback and returns a new array of elements.
-// In map the length of the returned array will be same as original array
+//* Map: map() takes a callback and returns a new array of elements.
+//* In map the length of the returned array will be same as original array
+
 const numArray = [1, 2, 3, 4, 5, 7, 8, 9, 10];
 const newNumArray = numArray.map((x) => x * 2);
 console.log(newNumArray); // [2, 4, 6, 8, 10, 14, 16, 18, 20]
 
-// Chaining in JS: The result of the first method passes to the next method and so on.
+//* Chaining in JS: The result of the first method passes to the next method and so on.
+
 const nums = [2, 6, 8, 3, 27, 9, 67, 75, 1, 0];
 const resultNums = nums
   .map((num) => num * 10) // 20, 60, 80, 30, 270, 90, 670, 750, 10, 0
@@ -187,8 +200,7 @@ const resultNums = nums
   });
 console.log(`Resultant Array: ${resultNums}`); // Resultant Array: 272,672,752
 
-// Reduce: The reduce() method in JavaScript is a powerful way to accumulate or reduce an array into a
-// single value — like a sum, object, array, etc.
+//* Reduce: The reduce() method in JavaScript is a powerful way to accumulate or reduce an array into a single value — like a sum, object, array, etc.
 // Syntax:
 // array.reduce((accumulator, currentValue) => {
 //   return updatedAccumulator;
@@ -227,22 +239,25 @@ const shoppingCart = [
 const cartValue = shoppingCart.reduce((total, item) => total + item.price, 0);
 console.log(`Total Cost: ${cartValue}`); // Total Cost: 32996
 
-// Immediately Invoked Function Expression (IIFE): Runs as soon as it is defined
+//* Immediately Invoked Function Expression (IIFE): Runs as soon as it is defined
+
 (function () {
   console.log("IIFE Executed!"); // IIFE Executed!
   let value = "This is value";
   console.log("Value: ", value); // Value: This is value
 })();
 
-// Arrow function IIFE
+//* Arrow function IIFE:
+
 (() => {
   console.log("Arrow function IIFE"); // Arrow function IIFE
   let arrowIIFE = "This is arrow function IIFE";
   console.log("Arrow IIFE: ", arrowIIFE); // Arrow IIFE: This is arrow function IIFE
 })();
 
-// call() Method: Allows you to call a function with a specific 'this' value
-// call() immediately invokes the function; first argument is the 'this' context
+//* call() Method: Allows you to call a function with a specific 'this' value.
+//* call() immediately invokes the function; first argument is the 'this' context
+
 const person = {
   name: "Alice",
   greet: function () {
@@ -252,7 +267,7 @@ const person = {
 // this' refers to the 'person' object
 person.greet(); // Hello, I am Alice
 
-// Example1:
+//* Example1:
 const person1 = {
   name: "Alice",
   age: 25,
@@ -275,7 +290,8 @@ console.log(introduce.call(person2)); // Hi, I'm Bob and I'm 30 years old.
 // introduce.call(person1) sets 'this' to 'person1' inside the introduce function
 // introduce.call(person2) sets 'this' to 'person2' inside the introduce function
 
-// Example2: Method Borrowing
+//* Example2: Method Borrowing
+
 const car1 = {
   brand: "Tata",
   model: "Curvv Ev",
@@ -294,7 +310,8 @@ const car2 = {
 console.log(car1.getInfo.call(car2)); // Mahindra BE6 Ev
 console.log(car1.getInfo.call(car1)); // Tata Curvv Ev
 
-// Example3: Function with Parameters
+//* Example3: Function with Parameters
+
 function greetMessage(greet, punctuation) {
   return `${greet}, I am ${this.name}${punctuation}`;
 }
@@ -305,7 +322,8 @@ const person4 = { name: "Shyam" };
 console.log(greetMessage.call(person3, "Hello", "!")); // Hello, I am Ram!
 console.log(greetMessage.call(person4, "Good morning", "!!!")); // Good morning, I am Shyam!!!
 
-// Example4: Finding Maximum in Arrays
+//* Example4: Finding Maximum in Arrays
+
 const numbers1 = [10, 20, 30];
 const numbers2 = [22, 7, 19, 4];
 
@@ -315,12 +333,13 @@ const numbers2 = [22, 7, 19, 4];
 // Using call() to pass array elements as separate arguments
 const max2 = Math.max.call(null, ...numbers2); // call with spread operator
 
-// Why null is passed as the first argument?
+//? Why null is passed as the first argument?
 // Math.max() is a static method of the Math object, and does not rely on 'this'.
 // It’s harmless because Math.max() doesn’t use 'this'.
 // You could also use 'undefined' — both are fine here.
 
-// Modern approach (ES6)
+//* Modern approach (ES6)
+
 const max3 = Math.max(...numbers1);
 console.log("Max using spread:", max3); // 30
 
@@ -351,14 +370,16 @@ const savingAccount = {
   accountNumber: "63893",
   balance: 500,
 };
+
 // Using call() to borrow methods
 console.log(bankAccount.getBalance.call(savingAccount)); // Account Number: 63893, Current Balance: 500
 console.log(bankAccount.deposit.call(savingAccount, 700)); // Deposited: 700, New Balance: 1200
 console.log(bankAccount.withdraw.call(savingAccount, 200)); // Withdrew: 200, New Balance: 1000
 console.log(bankAccount.getBalance.call(savingAccount)); // Account Number: 63893, Current Balance: 1000
 
-// Common Pitfalls and Solutions regarding call() method
-// Pitfall 1: Losing Context
+//* Common Pitfalls and Solutions regarding call() method
+
+//? Pitfall 1: Losing Context
 const person5 = {
   name: "Alice",
   greet: function () {
@@ -372,7 +393,7 @@ greetFunction(); // `this` is undefined , Hello, I'm undefined
 // Solution: Use call() to preserve context
 greetFunction.call(person5); // Hello, I'm Alice
 
-// Pitfall 2: Arrow Functions and call()
+//? Pitfall 2: Arrow Functions and call()
 const obj = { name: "Test" };
 // Regular function - call() works
 const regularFunction = function () {
@@ -386,13 +407,13 @@ const arrowFunction = () => {
 regularFunction.call(obj); // Regular function: Test
 arrowFunction.call(obj); // `this` is still the lexical scope , Arrow function: undefined
 
-// In regular functions, 'this' is dynamic - it depends on how the function is called.
-// In arrow functions, 'this' is lexical - it takes the value from its surrounding scope.
+//? In regular functions, 'this' is dynamic - it depends on how the function is called.
+//? In arrow functions, 'this' is lexical - it takes the value from its surrounding scope.
 
-// apply() method: Calls a function immediately with a given 'this' value and arguments passed as an array.
+//* apply() method: Calls a function immediately with a given 'this' value and arguments passed as an array.
 // Syntax: functionName.apply(thisArg, [argsArray])
 
-//Example1:
+//* Example1:
 function introduction(greeting, punctuation) {
   return `${greeting}, I'm ${this.name}${punctuation}`;
 }
@@ -400,14 +421,15 @@ function introduction(greeting, punctuation) {
 const person6 = { name: "Alice" };
 const person7 = { name: "Elon" };
 
-// Using apply() with array of arguments
+// Using apply() with array of arguments:
+
 console.log(introduction.apply(person6, ["Hello", "!"])); // Hello, I'm Alice!
 console.log(introduction.apply(person7, ["Hii", "!!"])); // Hii, I'm Elon!!
 
 // Compare with call()
 console.log(introduction.call(person6, "Hello", "!")); // Hello, I'm Alice!
 
-// Example2: Math Operations with Arrays
+//* Example2: Math Operations with Arrays
 
 // Using apply() to find the maximum and minimum in an array
 const arr = [5, 12, 8, 21, 3];
@@ -418,7 +440,7 @@ const minVal = Math.min.apply(null, arr);
 console.log(`Max value using apply: ${maxVal}`); // Max value using apply: 21
 console.log(`Min value using apply: ${minVal}`); // Min value using apply: 3
 
-// Example2: Math Operations with Arrays
+//* Example2: Math Operations with Arrays
 const numbersArr1 = [15, 3, 8, 22, 7];
 
 // Finding maximum value in array
@@ -434,29 +456,29 @@ const array1 = ["apple", "banana"];
 const array2 = ["orange", "grape"];
 const array3 = ["pineapple", "watermelon"];
 
-//  Using apply() to concatenate arrays
+//*  Using apply() to concatenate arrays
 const combined = []; // Array is also an object
 Array.prototype.push.apply(combined, array1);
 Array.prototype.push.apply(combined, array2);
 Array.prototype.push.apply(combined, array3);
 console.log("Combined Array: ", combined); // Combined array: ['apple', 'banana', 'orange', 'grape', 'kiwi', 'mango']
 
-// Modern Approach
+//* Modern Approach
 const modernCombined = [...array1, ...array2, ...array3];
 console.log("Modern approach:", modernCombined); // Modern approach: ['apple', 'banana', 'orange', 'grape', 'kiwi', 'mango']
 
-// Modern Approach2:
+//* Modern Approach2:
 const modernCombined2 = [];
 modernCombined2.push(...array1);
 modernCombined2.push(...array2);
 modernCombined2.push(...array3);
 console.log("Modern Approach 2: ", modernCombined2); // Modern approach2: ['apple', 'banana', 'orange', 'grape', 'kiwi', 'mango']
 
-// bind() method: Creates a new function with a specific 'this' context and optional preset args.
-// It doesn't invoke the function immediately.
+//* bind() method: Creates a new function with a specific 'this' context and optional preset args.
+//* It doesn't invoke the function immediately.
 // Syntax: const boundFunction = originalFunction.bind(thisArg, arg1, arg2, ...)
 
-//Example1:
+//* Example1:
 const person8 = {
   name: "Raj",
   age: 25,
@@ -474,11 +496,11 @@ console.log("Lost Context: ", introMsg()); // Lost context: Hi, I'm undefined an
 // Using call() method to preserve context
 console.log("Using call to preserve context: ", introMsg.call(person8)); // Using call to preserve context:  Hi I'm Raj and I'm 25 years old
 
-// Using bind() to preserve context
+//* Using bind() to preserve context
 const boundIntro = person8.intro.bind(person8);
 console.log("Using bind to preserve context: ", boundIntro()); // Using bind to preserve context:  Hi I'm Raj and I'm 25 years old
 
-// Example 2: // Creating specialized functions using bind()
+//* Example 2: Creating specialized functions using bind()
 function multiply(a, b, c) {
   console.log(`${a} × ${b} × ${c} = ${a * b * c}`);
   return a * b * c;
@@ -498,14 +520,14 @@ console.log("\nPartially applied (first two arguments = 2, 3):");
 multiplyBy2And3(4); // 2 × 3 × 4 = 24
 multiplyBy2And3(7); //  2 × 3 × 7 = 42
 
-// Example 3:
+//* Example 3:
 function createGreeting(greeting, punctuation) {
   return function (name) {
     return `${greeting}, ${name}${punctuation}`; // This is also a closure example
   };
 }
 
-// Traditional approach
+//* Traditional approach
 const sayHello = createGreeting("Hello", "!");
 const sayGoodbye = createGreeting("Goodbye", ".");
 console.log(sayHello("Alice")); // Hello, Alice!

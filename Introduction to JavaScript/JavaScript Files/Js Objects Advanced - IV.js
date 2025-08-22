@@ -8,7 +8,7 @@
 // If function is a part of object, that is, method , then "this" refers to that object
 // If function is a regular function, then it refers to the global object (Window object in browser and global in node).
 
-//* 1. Global Context : When "this" is used in the global scope (outside any function), it refers to the global object.
+//* 1. Global Context : When "this" is used in the global scope (outside any function), it refers to the global object or Window object.
 
 console.log("Global Context: ", this); // In browser: Window object, In Node.js: global object
 
@@ -73,8 +73,7 @@ function Video(title) {
 
 const v = new Video("Js Concepts"); // Video {title: 'Js Concepts'}
 console.log("object", v); // Video {title: 'Js Concepts'}
-// Empty object as new operator creates an empty object and the "this" of constructor function refers to that
-// empty object.
+// "new" operator creates an empty object and the "this" of constructor function refers to that empty object.
 
 //* 5. Arrow Functions: Arrow functions don't have their own "this", they inherit from the enclosing scope.
 
@@ -105,7 +104,7 @@ const user1 = {
   age: 22,
   welcomeMessage() {
     console.log(`${this.userName}, welcome to the website!`);
-    console.log("Inside object method:", this); // Inside object method: user object
+    console.log("Inside object method:", this); // Inside object method: user1 object
   },
 };
 
@@ -152,8 +151,8 @@ const userObject = {
 };
 
 //! Note:
-//? Regular functions: this is determined by how they are called
-//? Arrow functions: this is determined by where they are defined (lexical scope)
+//? Regular functions: "this" is determined by how they are called
+//? Arrow functions: "this" is determined by where they are defined (lexical scope)
 
 //* 6. 'this' in a function inside a method (ES5) refers to the window object.
 
@@ -322,7 +321,7 @@ console.log(functionBound("Greetings", "!!")); // Greetings, I'm Shyam!!
 const sayHello = intro.bind(personObj2, "Hello");
 console.log(sayHello(".")); // Hello, I'm Ram.
 
-//* Class context: In ES6 classes, "this" refers to the instance of the class
+//* 11. Class context: In ES6 classes, "this" refers to the instance of the class
 
 class Animal {
   constructor(name) {
@@ -403,12 +402,219 @@ const instance = new Demo("Shiva");
 console.log(instance.value); // Shiva
 
 // Method calls
-instance.arrowMethod(); // this = instance
-instance.regularMethod(); // this = instance (captured from constructor)
+instance.arrowMethod(); // this = instance (captured from constructor)
+instance.regularMethod(); // this = instance
 
 // Extracted Methods
-const regular = instance.regularMethod;
 const arrow = instance.arrowMethod;
+const regular = instance.regularMethod;
 
 arrow(); // this = instance (captured and bound permanently)
 regular(); // this = undefined (strict mode) or window (non-strict)
+
+//* 12 Callback Functions and "this" Loss: A common issue is losing the "this" context when passing methods as callbacks
+
+const counter = {
+  count: 0,
+  increment: function () {
+    this.count++;
+    console.log(this.count);
+  },
+};
+
+// Direct call works fine
+console.log(counter); // {count: 0, increment: ƒ}
+console.log(counter.count); // 0
+counter.increment(); // 1
+
+// But when used as callback, "this" is lost
+setTimeout(counter.increment, 1000); // NaN (this.count is undefined)
+
+//? Without wrapper - just passing the function
+// setTimeout(counter.increment, 1000);
+//? Equivalent to:
+// const func = counter.increment;
+// setTimeout(func, 1000); // func() - standalone call, no 'this'
+
+//* Solutions
+
+//? 1. Bind Method:
+// 2. Bind method
+setTimeout(counter.increment.bind(counter), 1000); // Works
+
+//? 2. Arrow function wrapper
+setTimeout(() => counter.increment(), 1000); // Works!
+
+//* Let's understand more about the Arrow function wrapper:
+
+//? 1. The arrow function () => counter.increment() is defined in the global scope
+//? (or whatever scope contains your setTimeout call).
+//? 2. At the time of definition, the arrow function looks at its surrounding lexical scope. In this scope:
+//? a) The counter variable exists and refers to your counter object
+//? b) The arrow function captures this lexical environment
+
+//? 3. What actually gets passed to setTimeout?
+// This is what you wrote:
+setTimeout(() => counter.increment(), 1000);
+
+// This is what actually gets passed to setTimeout:
+const wrapperFunction = () => {
+  // Inside here, 'counter' refers to the counter object from outer scope
+  counter.increment(); // This is a METHOD CALL on the counter object
+};
+setTimeout(wrapperFunction, 1000);
+
+//? Note: It's not about preserving this - it's about preserving the method call syntax.
+
+//* More examples to clarify:
+
+//? Example1:
+
+const obj1 = {
+  name: "Krishna",
+  greet: function () {
+    console.log(`Hello from ${this.name}`);
+  },
+};
+
+const obj2 = { name: "Radha" };
+
+// The arrow function captures the lexical reference to obj1
+setTimeout(() => obj1.greet(), 1000); // Hello from Krishna
+
+// We could even reassign and it would still work
+const originalObj = obj1;
+setTimeout(() => originalObj.greet(), 1000); // Hello from Krishna
+
+//? Example2: What if we change the Arrow function context?
+
+function setupTimer() {
+  const localCounter = {
+    count: 0,
+    increment: function () {
+      this.count++;
+      console.log(this.count);
+    },
+  };
+
+  // Arrow function defined inside setupTimer
+  // Captures localCounter from this function scope
+
+  setTimeout(() => localCounter.increment(), 1000);
+}
+
+setupTimer();
+
+//? Example3: Multiple levels
+
+const obj3 = {
+  name: "Mohan",
+  method: function () {
+    console.log("Method this:", this.name);
+    ("Mohan");
+
+    // Arrow function captures "this" from method scope
+    setTimeout(() => {
+      console.log("Arrow this:", this.name); // Arrow this: Mohan
+
+      setTimeout(() => {
+        console.log("Nested arrow this:", this.name); // Nested arrow this: Mohan
+      }, 1000);
+    }, 1000);
+  },
+};
+
+obj3.method();
+
+//* Common Pitfall and Best Practices
+
+//? 1. Method Assignment:
+
+const newObject = {
+  name: "Murli",
+  getName: function () {
+    return this.name;
+  },
+};
+
+const getName = newObject.getName;
+console.log(getName()); // undefined - lost context
+
+// fix with call():
+console.log(getName.call(newObject)); // Murli
+
+// fix with bind():
+const bindMethod = newObject.getName.bind(newObject);
+console.log(bindMethod());
+
+//? 2. Arrow methods with callbacks:
+
+const numbers = {
+  values: [1, 2, 3],
+  multiplier: 2,
+
+  getDoubled: function () {
+    // Here, 'this' = numbers object ✓
+    console.log("In getDoubled, this is:", this); // numbers object
+    // Problem: this is lost in callback
+    return this.values.map(function (num) {
+      return num * this.multiplier; // this.multiplier is undefined
+    });
+  },
+};
+
+//* Let's understand the above code:
+//? The issue is that the callback function passed to map() is called as a standalone function,
+//? not as a method of the numbers object.
+
+numbers.getDoubled();
+
+// Step 1: getDoubled is called as a method
+// this = numbers object
+
+// Step 2: this.values.map(...) is called
+// this.values = [1, 2, 3]
+
+// Step 3: map() internally does something like this:
+// for each element in array:
+//   callback(element, index, array)
+//   ↑ This is a STANDALONE function call!
+
+//* Solutions
+
+const newNumbers = {
+  values: [1, 2, 3],
+  multiplier: 2,
+
+  // getDoubled: function() {
+  //!     Problem: this is lost in callback
+  //     return this.values.map(function(num) {
+  //         return num * this.multiplier; // this.multiplier is undefined
+  //     });
+  // },
+
+  getDoubledFixed: function () {
+    // Solution 1: Arrow function
+    return this.values.map((num) => num * this.multiplier);
+  },
+
+  getDoubledWithBind: function () {
+    // Solution 2: Bind
+    return this.values.map(
+      function (num) {
+        return num * this.multiplier;
+      }.bind(this)
+    );
+  },
+
+  getDoubledWithThisArg: function () {
+    // Solution 3: Use thisArg parameter
+    return this.values.map(function (num) {
+      return num * this.multiplier;
+    }, this);
+  },
+};
+
+console.log(`Get double fix: ${newNumbers.getDoubledFixed()}`); // Get double fix: 2,4,6
+console.log(`Get doubled with bind: ${newNumbers.getDoubledWithBind()}`); // Get doubled with bind: 2,4,6
+console.log(`Get double with this arg: ${newNumbers.getDoubledWithThisArg()}`); // Get double with this arg: 2,4,6

@@ -84,38 +84,3 @@ for (let [key, value] of Object.entries(chai)) {
   }
 }
 
-// name: {value: 'Madhav', writable: true, enumerable: true, configurable: true}
-// [[Prototype]]: Object
-
-//* Object.defineProperty(): static method defines a new property directly on an object, or modifies an existing property on an object,
-//* and returns the object.
-
-Object.defineProperty(myObj, "name", {
-  writable: false,
-});
-console.log(Object.getOwnPropertyDescriptor(myObj, "name")); // {value: 'Madhav', writable: false, enumerable: true, configurable: true}
-myObj.name = "Shyam"; // This won't work
-console.log(myObj.name); // Madhav
-
-const chai = {
-  name: "Ginger Chai",
-  price: 250,
-  isAvailable: true,
-  makeTea: function () {
-    return `Tea is ready`;
-  },
-};
-
-console.log(Object.getOwnPropertyDescriptor(chai, "name"));
-Object.defineProperty(chai, "name", {
-  writable: false,
-  enumerable: false,
-  configurable: true,
-});
-
-console.log(Object.getOwnPropertyDescriptor(chai, "name"));
-for (let [key, value] of Object.entries(chai)) {
-  if (typeof value !== "function") {
-    console.log(`${key}: ${value}`); // price: 250 isAvailable: true
-  }
-}

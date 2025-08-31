@@ -6,9 +6,8 @@
  * 1.  Introduction to DOM
  * 2.  Accessing DOM Elements
  * 3.  Modifying DOM Elements
- * 4.  Creating and Deleting Elements
- * 5.  Event Handling
- * 6.  Best Practices
+ * 4.  Creating, Replacing and Deleting Elements
+ * 5.  Best Practices
  */
 
 //# JavaScript DOM: Document Object Model
@@ -243,6 +242,39 @@ console.log(divContainer2.firstElementChild); // returns the first child element
 console.log(divContainer2.lastChild); // returns the last child node
 console.log(divContainer2.lastElementChild); // returns the last child element
 
+console.log(divContainer2.childElementCount); // it will return the count of child elements.
+console.log(divContainer2.children); // It will return the child elements.
+console.log(divContainer2.className); // It will return the class name(s) of the element.
+console.log(divContainer2.parentElement); // It will return the parent element.
+console.log(divContainer2.parentNode); // It will return the parent node.
+console.log(divContainer2.parentElement.parentElement); // It will return the grandparent element.
+console.log(divContainer2.parentElement.children); // It will return the child elements of the parent.
+console.log(divContainer2.parentElement.childElementCount); // It will return the count of child elements.
+
+//* Node Vs Element - Key differences:
+//? - Node: Any item in the DOM tree (elements, text, comments, etc.)
+//? - Element: Only HTML tags/elements (a specific type of node)
+
+// Example:
+
+{
+  /* <div id="container">
+  <!-- This is a comment -->
+  <p>Hello World</p>
+  <span>Text here</span>
+</div> */
+}
+
+//* In this HTML, the DOM creates these nodes:
+// 1. Text node (whitespace after <div>)
+// 2. Comment node (<!-- This is a comment -->)
+// 3. Text node (whitespace after comment)
+// 4. Element node (<p>Hello World</p>)
+// 5. Text node (whitespace between elements)
+// 6. Element node (<span>Text here</span>)
+// 7. Text node (whitespace before </div>)
+// Only the <p> and <span> are elements.
+
 //* Navigating between sibling elements.
 
 const paraNew = document.querySelector("#text");
@@ -266,3 +298,105 @@ newDiv.classList.add("container");
 newParagraph.textContent = "This is a new paragraph.";
 newDiv.appendChild(newParagraph);
 document.body.appendChild(newDiv);
+
+//* Adding Elements to the DOM:
+
+const containerNew = document.getElementById("container");
+const newElement = document.createElement("p");
+newElement.textContent = "New paragraph";
+
+//# Different ways to add elements
+
+//* appendChild() - Adds element as the last child inside the container. Returns the
+//* appended element.
+
+containerNew.appendChild(newElement); // Add as last child inside container
+
+//? It also Moves the element if it already exists in the DOM, that means:
+//? If you call appendChild() with an element that’s already in the DOM, it will remove it
+//? from the old parent and place it inside the new parent as the last child. No duplication happens.
+
+{
+  /* <div id="first">
+  <p id="moveMe">I am here</p>
+</div>
+
+<div id="second"></div> */
+}
+
+const p = document.getElementById("moveMe");
+const second = document.getElementById("second");
+second.appendChild(p); // <p> is moved from inside #first to inside #second.
+
+//* insertBefore() - Inserts element before a reference child inside the container. Returns the
+//* appended element.
+containerNew.insertBefore(newElement, containerNew.firstChild); // Insert before first child
+
+//? It also move the element if it already exist elsewhere.
+
+{
+  /* <div id="first">
+  <p id="moveMe">I am here</p>
+</div>
+
+<div id="second">
+  <h1>Hello World!</h1>
+</div> */
+}
+
+const p1 = document.getElementById("moveMe");
+const divSecond = document.getElementById("second");
+divSecond.insertBefore(p1, divSecond.firstChild);
+
+//* Prepend() - Adds element as the first child inside the container. It can insert multiple elements:
+//* container.prepend(element1, element2, "text")
+
+containerNew.prepend(newElement); // Add as first child inside container
+
+//* append() - Adds element as the last child inside the container (like append child). It can insert multiple
+//* elements and text: container.append(elem1, "text", elem2)
+
+containerNew.append(newElement); // Add as last child inside container
+
+//* after() - Inserts elements after the container (as a sibling). Element becomes a sibling, not a child.
+
+containerNew.after(newElement); // Insert after the container
+
+//* before() - Inserts element before the container (as a sibling). Element becomes a sibling, not a child.
+
+containerNew.before(newElement); // Insert before the container
+
+//* replaceChild() - Replaces an existing child with a new element.
+
+const oldElement1 = containerNew.firstChild;
+containerNew.replaceChild(newElement, oldElement); // Replace first child with new element
+
+//* replaceWith() - Replace the element with a new element.
+
+const oldElement2 = document.querySelector(".old");
+oldElement2.replaceWith(newElement); // Replace oldElement with newElement
+
+oldElement2.parentNode.replaceChild(newElement, oldElement2);
+
+//* insertAdjacentElement() - Inserts a new element at a specified position relative to the container.
+
+// Four position options:
+containerNew.insertAdjacentElement("beforebegin", newElement); // Before container (sibling)
+containerNew.insertAdjacentElement("afterbegin", newElement); // First child inside
+containerNew.insertAdjacentElement("beforeend", newElement); // Last child inside
+containerNew.insertAdjacentElement("afterend", newElement); // After container (sibling)
+
+//* insertAdjacentHTML() - Inserts HTML content at a specified position relative to the container.
+
+containerNew.insertAdjacentHTML("beforebegin", "<p>Before container</p>");
+containerNew.insertAdjacentHTML("afterbegin", "<p>First child inside</p>");
+containerNew.insertAdjacentHTML("beforeend", "<p>Last child inside</p>");
+containerNew.insertAdjacentHTML("afterend", "<p>After container</p>");
+
+//* Removing or Deleting elements : Removes the specified element from the DOM.
+
+const elem = document.getElementById("elementId");
+elem.remove(); // Modern method
+
+// Using parent
+elem.parentNode.removeChild(elem); // Older method

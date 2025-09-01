@@ -132,7 +132,7 @@ element.innerText = "Visible text only";
 
 const divContainer = document.querySelector(".divContainer");
 console.log(divContainer.textContent); // "Visible text, Hidden text, Invisible text"
-console.log(container.innerText); // "Visible text"
+console.log(divContainer.innerText); // "Visible text"
 
 //# Manipulating CSS
 
@@ -249,7 +249,7 @@ console.log(divContainer2.parentElement); // It will return the parent element.
 console.log(divContainer2.parentNode); // It will return the parent node.
 console.log(divContainer2.parentElement.parentElement); // It will return the grandparent element.
 console.log(divContainer2.parentElement.children); // It will return the child elements of the parent.
-console.log(divContainer2.parentElement.childElementCount); // It will return the count of child elements.
+console.log(divContainer2.parentElement.childElementCount); // It will return the count of child elements of the parent.
 
 //* Node Vs Element - Key differences:
 //? - Node: Any item in the DOM tree (elements, text, comments, etc.)
@@ -369,7 +369,7 @@ containerNew.before(newElement); // Insert before the container
 //* replaceChild() - Replaces an existing child with a new element.
 
 const oldElement1 = containerNew.firstChild;
-containerNew.replaceChild(newElement, oldElement); // Replace first child with new element
+containerNew.replaceChild(newElement, oldElement1); // Replace first child with new element
 
 //* replaceWith() - Replace the element with a new element.
 

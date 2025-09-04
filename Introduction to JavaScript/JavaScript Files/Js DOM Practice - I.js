@@ -205,6 +205,7 @@ console.log(document.documentElement.parentElement); // null (no parent element)
 
 const divContainer4 = document.querySelector("#divContainer4");
 console.log(divContainer4.childElementCount); // 6
+console.log(divContainer4.hasChildNodes()); // true 
 
 // Only element nodes
 console.log(divContainer4.children); // HTMLCollection(6) [h3.heading, p#para4.para, a#anchor2.anchor,

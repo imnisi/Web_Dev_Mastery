@@ -1,5 +1,5 @@
 /**
- * @file Js DOM Advanced.js
+ * @file Js Events - I.js
  * @description This file contains advanced concepts of JavaScript DOM manipulation and event handling.
  * Topics covered:
  *     - Event Handling
@@ -161,7 +161,8 @@ const customEvent = new Event("customized_event"); // Creating a custom event us
 
 document
   .querySelector("#btn7")
-  .addEventListener("customized_event", function () {
+  .addEventListener("customized_event", function (e) {
+    console.log("Event details:", e);
     console.log("This is a custom event");
   });
 
